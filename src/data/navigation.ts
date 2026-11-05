@@ -35,6 +35,7 @@ export const pinnedMenu: NavItem[] = [
   { label: 'จัดการสถานการณ์โครงการ', to: '/project-status', icon: iconGear },
   { label: 'จัดการพื้นที่สำรวจ', to: '/survey', icon: iconMapPin },
   { label: 'จัดการการประชุม', to: '/meeting', icon: iconCalendarDots },
+  { label: 'แผนพัฒนาผู้นำชุมชน', to: '/leader', icon: iconNote },
 ]
 export const latestMenu: NavItem[] = [
   { label: 'บริหารจัดการโครงการ', to: '/projects', icon: iconManage },

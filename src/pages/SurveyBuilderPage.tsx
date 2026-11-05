@@ -135,7 +135,7 @@ export default function SurveyBuilderPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-[960px] flex-col px-[24px] pb-[55px] max-sm:px-[12px]">
+    <div className="flex w-full flex-col px-[24px] pb-[55px] max-sm:px-[12px]">
       {/* Title row */}
       <div className="flex items-center gap-[12px] pb-[12px]">
         <div className="flex min-w-0 flex-1 items-center gap-[10px]">

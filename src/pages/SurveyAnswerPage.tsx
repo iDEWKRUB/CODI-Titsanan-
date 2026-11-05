@@ -166,7 +166,7 @@ export default function SurveyAnswerPage({ preview = false, previewHeader = true
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[511px] w-full object-cover select-none"
       />
-      <div className="relative mx-auto flex w-full max-w-[960px] flex-col gap-[12px] px-[24px] pt-[24px] max-sm:px-[12px]">
+      <div className="relative mx-auto flex w-full max-w-[1100px] flex-col gap-[12px] px-[24px] pt-[24px] max-sm:px-[12px]">
         {preview && previewHeader && (
           <div className="flex items-center gap-[10px] pb-[12px]">
             <button type="button" aria-label="กลับไปแก้ไขแบบสอบถาม" onClick={() => navigate(`/survey/${draft.id}/edit`)} className="flex rounded-[8px] bg-blue-bg p-[8px] hover:bg-blue-20">
