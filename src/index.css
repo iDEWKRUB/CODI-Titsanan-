@@ -1,0 +1,94 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — source of truth: Figma "Resource/Component" page
+ * (Color 76:1345, Typography 76:1931). Figma name in the trailing comment.
+ */
+@theme {
+  --font-sans: 'Prompt', system-ui, sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-urbanist: 'Urbanist', sans-serif;
+
+  /* Primary */
+  --color-blue-00: #0085f9; /* Primary/Blue-00 */
+  --color-blue-10: #79c6f3; /* Primary/Blue-10 */
+  --color-blue-20: #c1e7ff; /* Primary/Blue-20 */
+  --color-blue-dark: #00357d; /* Primary/Blue-Dark */
+  --color-blue-bg: #e8f5ff; /* Primary/Blue-BG */
+  --color-blue-gray: #dfe8ef; /* Primary/Blue-Gray BG */
+
+  /* Secondary */
+  --color-red-00: #ff434e; /* Color/Seconary/Red-00 */
+  --color-red-10: #ffacb1; /* Color/Seconary/Red-10 */
+  --color-red-20: #ffe1e3; /* Color/Seconary/Red-20 */
+  --color-red-subtle: #fff4f4; /* Red-Subtle */
+
+  /* Gray */
+  --color-black: #24252e; /* Black */
+  --color-gray-30: #333e47; /* Gray/Gray-30 */
+  --color-gray-20: #757d83; /* Gray/Gray-20 */
+  --color-gray-10: #b3b7ba; /* Gray/Gray-10 */
+  --color-gray-5: #d4d7d9; /* Gray/Gray-5 */
+  --color-gray-line: #dbdddf; /* Gray/Gray-Line */
+  --color-gray-line-2: #e5e6e6; /* Gray-Line */
+  --color-gray-bg: #f2f3f4; /* Gray/Gray-BG */
+  --color-gray-subtle: #f7f8f8; /* Gray/Gray-BG Subtle */
+  --color-surface: #fffdfc; /* surface-default */
+  --color-white-soft: #fbfbfc; /* White (text on fills) */
+
+  /* Status (from the Badge components) */
+  --color-green: #14c6a4; /* Status/Green-mid */
+  --color-green-text: #059176; /* Status/Green-Text */
+  --color-green-bg: #d7f4f8; /* Status/Green-BG */
+  --color-yellow: #f2bb07; /* Status/Yellow-Text */
+  --color-red: #f73541; /* notification Badge indicator */
+
+  /* Literal values used by page instances (no Figma variable) */
+  --color-heading: #36393f;
+  --color-blue-title: #005aaa; /* section titles on the dashboard */
+  --color-blue-tint: #ebfaff; /* header icon buttons */
+  --color-navy: #030650; /* Digital ID button */
+  --color-shell: #252c32; /* app background behind sidebar */
+  --color-gray-nav: #707a90;
+  --color-gray-muted: #b6b6b6;
+  --color-ink: #393c43;
+  --color-red-light: var(--color-red-10);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-white font-sans text-gray-30;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+}
+
+/* Survey result "PDF" export prints only the main content */
+@media print {
+  aside,
+  header,
+  footer,
+  [role='tablist'],
+  [aria-live] {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
