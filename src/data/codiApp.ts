@@ -9,7 +9,7 @@ import n10 from '../assets/web/news-10.jpg'
 import n2 from '../assets/web/news-2.jpg'
 import n3 from '../assets/web/news-3.jpg'
 import n7 from '../assets/web/news-7.jpg'
-import { assetMenu, bookingMenu, edocMenu, erpMenu, financeMenu, fundingMenu, otherMenu, ossMenu, projectMenu, strategicMenu } from './navigation'
+import { agreementMenu, assetMenu, bookingMenu, edocMenu, erpMenu, financeMenu, fundingMenu, otherMenu, ossMenu, projectMenu, strategicMenu } from './navigation'
 
 export const newsCats = ['ข่าวล่าสุด', 'ข่าวทั่วไป', 'ข่าวภายในหน่วยงาน', 'ประกาศสำคัญ']
 export type NewsStatus = 'published' | 'draft' | 'unpublished'
@@ -64,6 +64,7 @@ export const appSystems: Sys[] = [
   { group: 'OSS', ref: '2.2.4', name: 'พัฒนาผู้นำชุมชน', desc: 'แผนพัฒนาและบันทึกผลหลักสูตร', to: '/leader' },
   { group: 'OSS', ref: '2.2.5', name: 'e-Survey', desc: 'แบบสอบถามและผลลัพธ์', to: '/survey' },
   { group: 'OSS', ref: '2.2.6', name: 'e-Meeting', desc: 'จัดการการประชุม', to: '/meeting' },
+  { group: 'อื่น ๆ', ref: '2.3.1', name: 'ERP AGREEMENT', desc: 'งานบริหารจัดการสัญญา', to: '/agreement' },
   { group: 'อื่น ๆ', ref: '2.3.2', name: 'บริหารจัดการสินเชื่อ', desc: 'เบิกจ่ายสินเชื่อและประวัติลูกหนี้', to: '/loan/disbursement' },
   { group: 'อื่น ๆ', ref: '2.3.3', name: 'ตรวจนับพัสดุ AMS', desc: 'สแกนตรวจนับด้วย RFID', to: '/ams' },
   { group: 'อื่น ๆ', ref: '2.4.2', name: 'เว็บประชาสัมพันธ์และห้องสมุด', desc: 'ข่าว คลังความรู้', to: '/library' },
@@ -86,11 +87,11 @@ export const quickLinks: Quick[] = [
 export type Hit = { label: string; group: string; to: string; score: number }
 const keywords: Record<string, string> = {
   '/funding': 'กองทุน หุ้นกู้ ลงทุน', '/finance/loan': 'ยืมเงิน ทดรองจ่าย เงินยืม', '/finance/clear': 'หักล้าง เงินยืม คืนเงิน', '/hr': 'บุคลากร ลา เงินเดือน พนักงาน เจ้าหน้าที่', '/hr/leave': 'ลา ลาป่วย ลากิจ พักร้อน',
-  '/saraban': 'สารบรรณ หนังสือ ลงนาม', '/project': 'โครงการ ผลการดำเนินงาน', '/strategic': 'แผน ยุทธศาสตร์ ความเสี่ยง', '/meeting': 'ประชุม นัดหมาย', '/survey': 'แบบสอบถาม สำรวจ', '/notifications': 'แจ้งเตือน', '/booking': 'จอง การจองของฉัน ห้องประชุม รถ ยานพาหนะ Zoom ยืม', '/booking/room': 'จองห้องประชุม ห้อง', '/booking/vehicle': 'จองรถ ยานพาหนะ', '/booking/zoom': 'จอง Zoom ประชุมออนไลน์', '/booking/borrow': 'ยืมพัสดุ ครุภัณฑ์', '/asset': 'พัสดุ ครุภัณฑ์ ทะเบียน', '/asset/repair/new': 'ซ่อม แจ้งซ่อม ชำรุด เสีย', '/asset/procurement': 'จัดซื้อ จัดจ้าง ประกวดราคา', '/edoc/upload': 'เอกสาร ใบเสร็จ สแกน OCR อัปโหลด', '/edoc': 'เอกสาร คลัง ใบเสร็จ',
+  '/agreement': 'สัญญา ทะเบียนสัญญา MOU ลงนาม ตรวจสอบสัญญา', '/agreement/new': 'สร้างสัญญา สัญญาใหม่', '/saraban': 'สารบรรณ หนังสือ ลงนาม', '/project': 'โครงการ ผลการดำเนินงาน', '/strategic': 'แผน ยุทธศาสตร์ ความเสี่ยง', '/meeting': 'ประชุม นัดหมาย', '/survey': 'แบบสอบถาม สำรวจ', '/notifications': 'แจ้งเตือน', '/booking': 'จอง การจองของฉัน ห้องประชุม รถ ยานพาหนะ Zoom ยืม', '/booking/room': 'จองห้องประชุม ห้อง', '/booking/vehicle': 'จองรถ ยานพาหนะ', '/booking/zoom': 'จอง Zoom ประชุมออนไลน์', '/booking/borrow': 'ยืมพัสดุ ครุภัณฑ์', '/asset': 'พัสดุ ครุภัณฑ์ ทะเบียน', '/asset/repair/new': 'ซ่อม แจ้งซ่อม ชำรุด เสีย', '/asset/procurement': 'จัดซื้อ จัดจ้าง ประกวดราคา', '/edoc/upload': 'เอกสาร ใบเสร็จ สแกน OCR อัปโหลด', '/edoc': 'เอกสาร คลัง ใบเสร็จ',
 }
 const menuIndex = (): { label: string; group: string; to: string }[] => {
   const out: { label: string; group: string; to: string }[] = []
-  const groups = [...ossMenu, ...otherMenu, ...erpMenu, ...strategicMenu, ...projectMenu, ...financeMenu, ...fundingMenu, ...assetMenu, ...edocMenu, ...bookingMenu]
+  const groups = [...ossMenu, ...otherMenu, ...erpMenu, ...strategicMenu, ...projectMenu, ...financeMenu, ...fundingMenu, ...assetMenu, ...edocMenu, ...bookingMenu, ...agreementMenu]
   for (const g of groups) for (const c of g.children) out.push({ label: c.label, group: g.label, to: c.to })
   out.push({ label: 'ศูนย์แจ้งเตือน', group: 'ทั่วไป', to: '/notifications' }, { label: 'ตั้งค่าผู้ใช้งาน', group: 'ทั่วไป', to: '/profile' }, { label: 'ข่าวสาร', group: 'CODI APP', to: '/app/news' }, { label: 'ช่องทางการติดต่อ', group: 'CODI APP', to: '/app/contact' })
   return out.filter((x, i, a) => a.findIndex((y) => y.to === x.to && y.label === x.label) === i)

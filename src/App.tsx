@@ -67,6 +67,15 @@ import HrCareerPage from './pages/HrCareerPage'
 import HrCareerNewPage from './pages/HrCareerNewPage'
 import AssetHomePage from './pages/AssetHomePage'
 import BookingHomePage from './pages/BookingHomePage'
+import AgreementHomePage from './pages/AgreementHomePage'
+import AgreementTypePage from './pages/AgreementTypePage'
+import AgreementPartiesPage from './pages/AgreementPartiesPage'
+import AgreementRegistryPage from './pages/AgreementRegistryPage'
+import AgreementRegistryNewPage from './pages/AgreementRegistryNewPage'
+import AgreementReviewPage from './pages/AgreementReviewPage'
+import AgreementReviewDetailPage from './pages/AgreementReviewDetailPage'
+import AgreementCheckPage from './pages/AgreementCheckPage'
+import AgreementSignPage from './pages/AgreementSignPage'
 import BookingFormPage from './pages/BookingFormPage'
 import BookingApprovePage from './pages/BookingApprovePage'
 import AssetImportPage from './pages/AssetImportPage'
@@ -198,6 +207,15 @@ export default function App() {
           <Route path="/hr/career/new" element={<HrCareerNewPage />} />
           <Route path="/asset" element={<AssetHomePage />} />
           <Route path="/booking" element={<BookingHomePage />} />
+          <Route path="/agreement" element={<AgreementHomePage />} />
+          <Route path="/agreement/new" element={<AgreementTypePage />} />
+          <Route path="/agreement/new/parties" element={<AgreementPartiesPage />} />
+          <Route path="/agreement/registry" element={<AgreementRegistryPage />} />
+          <Route path="/agreement/registry/new" element={<AgreementRegistryNewPage />} />
+          <Route path="/agreement/review" element={<AgreementReviewPage />} />
+          <Route path="/agreement/review/detail" element={<AgreementReviewDetailPage />} />
+          <Route path="/agreement/review/check" element={<AgreementCheckPage />} />
+          <Route path="/agreement/sign" element={<AgreementSignPage />} />
           <Route path="/booking/room" element={<BookingFormPage />} />
           <Route path="/booking/zoom" element={<BookingFormPage />} />
           <Route path="/booking/vehicle" element={<BookingFormPage />} />

@@ -57,6 +57,7 @@ const catSystems: Record<Cat, { label: string; icon: string; to?: string }[]> = 
     { label: 'ระบบพัสดุ', icon: I.box, to: '/asset' },
     { label: 'ระบบนำเข้าเอกสาร', icon: I.upload, to: '/edoc' },
     { label: 'ระบบจองออนไลน์', icon: I.meet, to: '/booking' },
+    { label: 'ระบบบริหารจัดการสัญญา', icon: I.doc, to: '/agreement' },
   ],
   oss: [
     { label: 'CODI OSS ภาพรวม', icon: I.chart, to: '/dashboard' },

@@ -252,6 +252,23 @@ export const bookingMenu: OssGroup[] = [
   },
 ]
 
+/** ERP AGREEMENT — งานบริหารจัดการสัญญา (§2.3.1) */
+export const agreementMenu: OssGroup[] = [
+  {
+    ref: '2.3.1',
+    label: 'งานบริหารจัดการสัญญา',
+    to: '/agreement',
+    icon: iconManage,
+    children: [
+      { label: 'ภาพรวมสัญญา', to: '/agreement', end: true },
+      { label: 'สร้างสัญญาฉบับใหม่', to: '/agreement/new' },
+      { label: 'ทะเบียนสัญญา', to: '/agreement/registry' },
+      { label: 'รายการสัญญารอตรวจสอบ', to: '/agreement/review' },
+      { label: 'สัญญารอลงนาม', to: '/agreement/sign' },
+    ],
+  },
+]
+
 export const hrMenu: OssGroup[] = [
   {
     ref: '2.1.6',
@@ -350,6 +367,7 @@ export const systems = [
   { key: 'finance' as const, name: 'ERP FINANCE', desc: 'งานงบประมาณและการเงิน', home: '/finance' },
   { key: 'funding' as const, name: 'ERP FUNDING', desc: 'งานบริหารกองทุน', home: '/funding' },
   { key: 'hr' as const, name: 'ERP HR', desc: 'งานบริหารจัดการทรัพยากรบุคคล', home: '/hr' },
+  { key: 'agreement' as const, name: 'ERP AGREEMENT', desc: 'งานบริหารจัดการสัญญา', home: '/agreement' },
   { key: 'booking' as const, name: 'ERP BOOKING', desc: 'งานจองออนไลน์', home: '/booking' },
   { key: 'asset' as const, name: 'ERP ASSET', desc: 'งานบริหารจัดการพัสดุ', home: '/asset' },
   { key: 'edoc' as const, name: 'ERP DOCUMENT', desc: 'งานนำเข้าเอกสาร (e-Document)', home: '/edoc' },
@@ -399,6 +417,12 @@ export const edocMain: NavItem[] = [
 ]
 export const bookingMain: NavItem[] = [
   { label: 'การจองของฉัน', to: '/booking', icon: iconHouseGray, activeIcon: iconHouse, end: true },
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
+  { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
+  { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
+]
+export const agreementMain: NavItem[] = [
+  { label: 'ภาพรวมสัญญา', to: '/agreement', icon: iconHouseGray, activeIcon: iconHouse, end: true },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
   { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
   { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
@@ -453,6 +477,10 @@ const routeIcon: Record<string, string> = {
   '/hr/career': line('M4 20V14h4v6M10 20V9h4v11M16 20V4h4v16'),
   '/hr/career/new': line('M5 12l5 5L20 7'),
   '/hr/payroll': line('M3 6h18v12H3ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'),
+  '/agreement/new': line('M12 5v14M5 12h14'),
+  '/agreement/registry': line('M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2ZM19 19v2H6'),
+  '/agreement/review': line('M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14ZM20 20l-4-4M8.5 11l2 2 3.5-4'),
+  '/agreement/sign': line('M3 21l4-1 12-12-3-3L4 17ZM14 6l3 3'),
   '/booking/room': line('M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M3 21h18M8 8h3M8 12h3M8 16h3'),
   '/booking/zoom': line('M3 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2ZM15 10l6-3v10l-6-3'),
   '/booking/vehicle': line('M5 17h14M5 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M3 17v-5l2-5h12l3 5v5M3 12h17'),
@@ -501,6 +529,10 @@ export const hrPinCatalog: PinItem[] = [
   ...hrMenu.flatMap((g) => g.children.map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ].filter((p, i, a) => a.findIndex((x) => x.to === p.to) === i)
+export const agreementPinCatalog: PinItem[] = [
+  ...agreementMenu.flatMap((g) => g.children.filter((c) => c.to !== '/agreement').map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
+]
 export const bookingPinCatalog: PinItem[] = [
   ...bookingMenu.flatMap((g) => g.children.filter((c) => c.to !== '/booking').map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
@@ -513,7 +545,8 @@ export const edocPinCatalog: PinItem[] = [
   { label: 'นำเข้าเอกสาร', to: '/edoc/upload', icon: routeIcon['/edoc/upload'] ?? iconManage, group: 'งานนำเข้าเอกสาร' },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ]
-export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking' | 'agreement') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, agreement: agreementPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const defaultAgreementPins = ['/agreement/new', '/agreement/registry', '/agreement/review', '/agreement/sign']
 export const defaultBookingPins = ['/booking/room', '/booking/vehicle', '/booking/zoom', '/booking/borrow']
 export const defaultAssetPins = ['/asset/repair', '/asset/repair/new', '/asset/import', '/asset/procurement']
 export const defaultEdocPins = ['/edoc/upload']

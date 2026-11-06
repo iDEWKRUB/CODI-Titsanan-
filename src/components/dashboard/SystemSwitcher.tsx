@@ -30,6 +30,7 @@ export default function SystemSwitcher({ tone, onNavigate }: { tone: 'dark' | 'l
     else if (pathname === '/finance' || pathname.startsWith('/finance/')) setSystem('finance')
     else if (pathname === '/funding' || pathname.startsWith('/funding/')) setSystem('funding')
     else if (pathname === '/hr' || pathname.startsWith('/hr/')) setSystem('hr')
+    else if (pathname === '/agreement' || pathname.startsWith('/agreement/')) setSystem('agreement')
     else if (pathname === '/booking' || pathname.startsWith('/booking/')) setSystem('booking')
     else if (pathname === '/asset' || pathname.startsWith('/asset/')) setSystem('asset')
     else if (pathname === '/edoc' || pathname.startsWith('/edoc/')) setSystem('edoc')
