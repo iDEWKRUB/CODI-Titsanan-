@@ -298,6 +298,28 @@ export const reportMenu: OssGroup[] = [
   },
 ]
 
+/** ERP COMPLAINT — งานรับเรื่องร้องเรียน (§2.1.9) */
+export const complaintMenu: OssGroup[] = [
+  {
+    ref: '2.1.9',
+    label: 'งานรับเรื่องร้องเรียน',
+    to: '/complaint',
+    icon: iconManage,
+    children: [{ label: 'ภาพรวมเรื่องร้องเรียน/คดี', to: '/complaint', end: true }],
+  },
+]
+
+/** CKB — คลังความรู้กลาง (§2.4.1) */
+export const ckbMenu: OssGroup[] = [
+  {
+    ref: '2.4.1',
+    label: 'คลังความรู้กลาง',
+    to: '/ckb',
+    icon: iconManage,
+    children: [{ label: 'คลังความรู้ พอช.', to: '/ckb', end: true }],
+  },
+]
+
 export const hrMenu: OssGroup[] = [
   {
     ref: '2.1.6',
@@ -396,6 +418,8 @@ export const systems = [
   { key: 'finance' as const, name: 'ERP FINANCE', desc: 'งานงบประมาณและการเงิน', home: '/finance' },
   { key: 'funding' as const, name: 'ERP FUNDING', desc: 'งานบริหารกองทุน', home: '/funding' },
   { key: 'hr' as const, name: 'ERP HR', desc: 'งานบริหารจัดการทรัพยากรบุคคล', home: '/hr' },
+  { key: 'ckb' as const, name: 'CKB', desc: 'คลังความรู้กลาง', home: '/ckb' },
+  { key: 'complaint' as const, name: 'ERP COMPLAINT', desc: 'งานรับเรื่องร้องเรียน', home: '/complaint' },
   { key: 'report' as const, name: 'AI REPORT', desc: 'งานออกรายงานอัจฉริยะ', home: '/report' },
   { key: 'notify' as const, name: 'AI NOTIFICATION', desc: 'ศูนย์แจ้งเตือนอัจฉริยะ', home: '/notify' },
   { key: 'agreement' as const, name: 'ERP AGREEMENT', desc: 'งานบริหารจัดการสัญญา', home: '/agreement' },
@@ -466,6 +490,18 @@ export const notifyMain: NavItem[] = [
 ]
 export const reportMain: NavItem[] = [
   { label: 'ผู้ช่วยสร้างรายงาน', to: '/report', icon: iconHouseGray, activeIcon: iconHouse, end: true },
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
+  { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
+  { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
+]
+export const complaintMain: NavItem[] = [
+  { label: 'ภาพรวมเรื่องร้องเรียน', to: '/complaint', icon: iconHouseGray, activeIcon: iconHouse, end: true },
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
+  { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
+  { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
+]
+export const ckbMain: NavItem[] = [
+  { label: 'คลังความรู้ พอช.', to: '/ckb', icon: iconHouseGray, activeIcon: iconHouse, end: true },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
   { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
   { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
@@ -575,6 +611,12 @@ export const hrPinCatalog: PinItem[] = [
   ...hrMenu.flatMap((g) => g.children.map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ].filter((p, i, a) => a.findIndex((x) => x.to === p.to) === i)
+export const ckbPinCatalog: PinItem[] = [
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
+]
+export const complaintPinCatalog: PinItem[] = [
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
+]
 export const reportPinCatalog: PinItem[] = [
   ...reportMenu.flatMap((g) => g.children.filter((c) => c.to !== '/report').map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
@@ -599,7 +641,9 @@ export const edocPinCatalog: PinItem[] = [
   { label: 'นำเข้าเอกสาร', to: '/edoc/upload', icon: routeIcon['/edoc/upload'] ?? iconManage, group: 'งานนำเข้าเอกสาร' },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ]
-export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking' | 'agreement' | 'notify' | 'report') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, report: reportPinCatalog, notify: notifyPinCatalog, agreement: agreementPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking' | 'agreement' | 'notify' | 'report' | 'complaint' | 'ckb') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, ckb: ckbPinCatalog, complaint: complaintPinCatalog, report: reportPinCatalog, notify: notifyPinCatalog, agreement: agreementPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const defaultCkbPins: string[] = []
+export const defaultComplaintPins: string[] = []
 export const defaultReportPins = ['/report/dashboard/new']
 export const defaultNotifyPins = ['/notify/mine', '/notify/settings']
 export const defaultAgreementPins = ['/agreement/new', '/agreement/registry', '/agreement/review', '/agreement/sign']

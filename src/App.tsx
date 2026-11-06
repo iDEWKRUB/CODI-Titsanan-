@@ -70,6 +70,8 @@ import BookingHomePage from './pages/BookingHomePage'
 import AgreementHomePage from './pages/AgreementHomePage'
 import NotifyHomePage from './pages/NotifyHomePage'
 import ReportHomePage from './pages/ReportHomePage'
+import ComplaintHomePage from './pages/ComplaintHomePage'
+import CkbHomePage from './pages/CkbHomePage'
 import ReportDashboardPage from './pages/ReportDashboardPage'
 import NotifyMinePage from './pages/NotifyMinePage'
 import NotifySettingsPage from './pages/NotifySettingsPage'
@@ -215,6 +217,8 @@ export default function App() {
           <Route path="/agreement" element={<AgreementHomePage />} />
           <Route path="/notify" element={<NotifyHomePage />} />
           <Route path="/report" element={<ReportHomePage />} />
+          <Route path="/complaint" element={<ComplaintHomePage />} />
+          <Route path="/ckb" element={<CkbHomePage />} />
           <Route path="/report/dashboard/new" element={<ReportDashboardPage />} />
           <Route path="/notify/mine" element={<NotifyMinePage />} />
           <Route path="/notify/settings" element={<NotifySettingsPage />} />

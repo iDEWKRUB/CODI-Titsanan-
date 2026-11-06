@@ -1,11 +1,11 @@
 import { useSyncExternalStore } from 'react'
-import { defaultPins, defaultSarabanPins, defaultFinancePins, defaultFundingPins, defaultHrPins, defaultAssetPins, defaultEdocPins, defaultBookingPins, defaultAgreementPins, defaultNotifyPins, defaultReportPins, defaultProjectPins, defaultStrategicPins, pinCatalogFor } from '../data/navigation'
+import { defaultPins, defaultSarabanPins, defaultFinancePins, defaultFundingPins, defaultHrPins, defaultAssetPins, defaultEdocPins, defaultBookingPins, defaultAgreementPins, defaultNotifyPins, defaultReportPins, defaultComplaintPins, defaultCkbPins, defaultProjectPins, defaultStrategicPins, pinCatalogFor } from '../data/navigation'
 import { getSystem, useSystem, type SystemKey } from './systemStore'
 
 export const MAX_PINS = 8
 // OSS keeps its original key so existing pins survive; every other system gets its own list
 const keyOf = (s: SystemKey) => (s === 'oss' ? 'codi.pinnedMenus' : 'codi.pinnedMenus.' + s)
-const defaultsOf = (s: SystemKey) => (s === 'saraban' ? defaultSarabanPins : s === 'strategic' ? defaultStrategicPins : s === 'project' ? defaultProjectPins : s === 'finance' ? defaultFinancePins : s === 'funding' ? defaultFundingPins : s === 'hr' ? defaultHrPins : s === 'asset' ? defaultAssetPins : s === 'booking' ? defaultBookingPins : s === 'agreement' ? defaultAgreementPins : s === 'notify' ? defaultNotifyPins : s === 'report' ? defaultReportPins : s === 'edoc' ? defaultEdocPins : defaultPins)
+const defaultsOf = (s: SystemKey) => (s === 'saraban' ? defaultSarabanPins : s === 'strategic' ? defaultStrategicPins : s === 'project' ? defaultProjectPins : s === 'finance' ? defaultFinancePins : s === 'funding' ? defaultFundingPins : s === 'hr' ? defaultHrPins : s === 'asset' ? defaultAssetPins : s === 'booking' ? defaultBookingPins : s === 'agreement' ? defaultAgreementPins : s === 'notify' ? defaultNotifyPins : s === 'report' ? defaultReportPins : s === 'complaint' ? defaultComplaintPins : s === 'ckb' ? defaultCkbPins : s === 'edoc' ? defaultEdocPins : defaultPins)
 const clean = (s: SystemKey, xs: unknown): string[] => (Array.isArray(xs) ? xs.filter((x): x is string => typeof x === 'string' && pinCatalogFor(s).some((p) => p.to === x)) : defaultsOf(s))
 const load = (s: SystemKey): string[] => {
   try {
@@ -16,7 +16,7 @@ const load = (s: SystemKey): string[] => {
   }
 }
 
-const state: Record<SystemKey, string[]> = { oss: load('oss'), saraban: load('saraban'), strategic: load('strategic'), project: load('project'), finance: load('finance'), funding: load('funding'), hr: load('hr'), report: load('report'), notify: load('notify'), agreement: load('agreement'), booking: load('booking'), asset: load('asset'), edoc: load('edoc') }
+const state: Record<SystemKey, string[]> = { oss: load('oss'), saraban: load('saraban'), strategic: load('strategic'), project: load('project'), finance: load('finance'), funding: load('funding'), hr: load('hr'), ckb: load('ckb'), complaint: load('complaint'), report: load('report'), notify: load('notify'), agreement: load('agreement'), booking: load('booking'), asset: load('asset'), edoc: load('edoc') }
 const listeners = new Set<() => void>()
 const commit = (s: SystemKey, next: string[]) => {
   state[s] = next

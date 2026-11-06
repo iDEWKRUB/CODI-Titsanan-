@@ -9,7 +9,7 @@ import n10 from '../assets/web/news-10.jpg'
 import n2 from '../assets/web/news-2.jpg'
 import n3 from '../assets/web/news-3.jpg'
 import n7 from '../assets/web/news-7.jpg'
-import { reportMenu, notifyMenu, agreementMenu, assetMenu, bookingMenu, edocMenu, erpMenu, financeMenu, fundingMenu, otherMenu, ossMenu, projectMenu, strategicMenu } from './navigation'
+import { ckbMenu, complaintMenu, reportMenu, notifyMenu, agreementMenu, assetMenu, bookingMenu, edocMenu, erpMenu, financeMenu, fundingMenu, otherMenu, ossMenu, projectMenu, strategicMenu } from './navigation'
 
 export const newsCats = ['ข่าวล่าสุด', 'ข่าวทั่วไป', 'ข่าวภายในหน่วยงาน', 'ประกาศสำคัญ']
 export type NewsStatus = 'published' | 'draft' | 'unpublished'
@@ -57,7 +57,7 @@ export const appSystems: Sys[] = [
   { group: 'ERP', ref: '2.1.6', name: 'ERP HR', desc: 'งานบริหารทรัพยากรบุคคล', to: '/hr' },
   { group: 'ERP', ref: '2.1.7', name: 'ERP SARABAN', desc: 'งานสารบรรณอิเล็กทรอนิกส์', to: '/saraban' },
   { group: 'ERP', ref: '2.1.8', name: 'ERP ASSET', desc: 'งานบริหารจัดการพัสดุ', to: '/asset' },
-  { group: 'ERP', ref: '2.1.9', name: 'ERP Complaint', desc: 'งานรับเรื่องร้องเรียน' },
+  { group: 'ERP', ref: '2.1.9', name: 'ERP COMPLAINT', desc: 'งานรับเรื่องร้องเรียน', to: '/complaint' },
   { group: 'ERP', ref: '2.1.10', name: 'ERP BOOKING', desc: 'งานจองออนไลน์', to: '/booking' },
   { group: 'ERP', ref: '2.1.11', name: 'ERP DOCUMENT', desc: 'งานนำเข้าเอกสาร', to: '/edoc' },
   { group: 'OSS', ref: '2.2', name: 'CODI OSS', desc: 'ระบบให้บริการแบบครบวงจร', to: '/dashboard' },
@@ -69,6 +69,7 @@ export const appSystems: Sys[] = [
   { group: 'อื่น ๆ', ref: '2.3.1', name: 'ERP AGREEMENT', desc: 'งานบริหารจัดการสัญญา', to: '/agreement' },
   { group: 'อื่น ๆ', ref: '2.3.2', name: 'บริหารจัดการสินเชื่อ', desc: 'เบิกจ่ายสินเชื่อและประวัติลูกหนี้', to: '/loan/disbursement' },
   { group: 'อื่น ๆ', ref: '2.3.3', name: 'ตรวจนับพัสดุ AMS', desc: 'สแกนตรวจนับด้วย RFID', to: '/ams' },
+  { group: 'อื่น ๆ', ref: '2.4.1', name: 'CKB คลังความรู้กลาง', desc: 'เอกสารกลางและ e-Learning', to: '/ckb' },
   { group: 'อื่น ๆ', ref: '2.4.2', name: 'เว็บประชาสัมพันธ์และห้องสมุด', desc: 'ข่าว คลังความรู้', to: '/library' },
 ]
 
@@ -89,11 +90,11 @@ export const quickLinks: Quick[] = [
 export type Hit = { label: string; group: string; to: string; score: number }
 const keywords: Record<string, string> = {
   '/funding': 'กองทุน หุ้นกู้ ลงทุน', '/finance/loan': 'ยืมเงิน ทดรองจ่าย เงินยืม', '/finance/clear': 'หักล้าง เงินยืม คืนเงิน', '/hr': 'บุคลากร ลา เงินเดือน พนักงาน เจ้าหน้าที่', '/hr/leave': 'ลา ลาป่วย ลากิจ พักร้อน',
-  '/report': 'รายงาน dashboard แผนภูมิ สรุป วิเคราะห์ AI', '/report/dashboard/new': 'สร้าง dashboard แดชบอร์ด', '/notify': 'แจ้งเตือน ศูนย์แจ้งเตือน ความเสี่ยง', '/notify/settings': 'ตั้งค่าแจ้งเตือน', '/agreement': 'สัญญา ทะเบียนสัญญา MOU ลงนาม ตรวจสอบสัญญา', '/agreement/new': 'สร้างสัญญา สัญญาใหม่', '/saraban': 'สารบรรณ หนังสือ ลงนาม', '/project': 'โครงการ ผลการดำเนินงาน', '/strategic': 'แผน ยุทธศาสตร์ ความเสี่ยง', '/meeting': 'ประชุม นัดหมาย', '/survey': 'แบบสอบถาม สำรวจ', '/notifications': 'แจ้งเตือน', '/booking': 'จอง การจองของฉัน ห้องประชุม รถ ยานพาหนะ Zoom ยืม', '/booking/room': 'จองห้องประชุม ห้อง', '/booking/vehicle': 'จองรถ ยานพาหนะ', '/booking/zoom': 'จอง Zoom ประชุมออนไลน์', '/booking/borrow': 'ยืมพัสดุ ครุภัณฑ์', '/asset': 'พัสดุ ครุภัณฑ์ ทะเบียน', '/asset/repair/new': 'ซ่อม แจ้งซ่อม ชำรุด เสีย', '/asset/procurement': 'จัดซื้อ จัดจ้าง ประกวดราคา', '/edoc/upload': 'เอกสาร ใบเสร็จ สแกน OCR อัปโหลด', '/edoc': 'เอกสาร คลัง ใบเสร็จ',
+  '/ckb': 'คลังความรู้ เอกสาร เรียนรู้ e-learning คอร์ส ใบประกาศ', '/complaint': 'ร้องเรียน เรื่องร้องเรียน คดี ทุจริต ข้อเสนอแนะ', '/report': 'รายงาน dashboard แผนภูมิ สรุป วิเคราะห์ AI', '/report/dashboard/new': 'สร้าง dashboard แดชบอร์ด', '/notify': 'แจ้งเตือน ศูนย์แจ้งเตือน ความเสี่ยง', '/notify/settings': 'ตั้งค่าแจ้งเตือน', '/agreement': 'สัญญา ทะเบียนสัญญา MOU ลงนาม ตรวจสอบสัญญา', '/agreement/new': 'สร้างสัญญา สัญญาใหม่', '/saraban': 'สารบรรณ หนังสือ ลงนาม', '/project': 'โครงการ ผลการดำเนินงาน', '/strategic': 'แผน ยุทธศาสตร์ ความเสี่ยง', '/meeting': 'ประชุม นัดหมาย', '/survey': 'แบบสอบถาม สำรวจ', '/notifications': 'แจ้งเตือน', '/booking': 'จอง การจองของฉัน ห้องประชุม รถ ยานพาหนะ Zoom ยืม', '/booking/room': 'จองห้องประชุม ห้อง', '/booking/vehicle': 'จองรถ ยานพาหนะ', '/booking/zoom': 'จอง Zoom ประชุมออนไลน์', '/booking/borrow': 'ยืมพัสดุ ครุภัณฑ์', '/asset': 'พัสดุ ครุภัณฑ์ ทะเบียน', '/asset/repair/new': 'ซ่อม แจ้งซ่อม ชำรุด เสีย', '/asset/procurement': 'จัดซื้อ จัดจ้าง ประกวดราคา', '/edoc/upload': 'เอกสาร ใบเสร็จ สแกน OCR อัปโหลด', '/edoc': 'เอกสาร คลัง ใบเสร็จ',
 }
 const menuIndex = (): { label: string; group: string; to: string }[] => {
   const out: { label: string; group: string; to: string }[] = []
-  const groups = [...ossMenu, ...otherMenu, ...erpMenu, ...strategicMenu, ...projectMenu, ...financeMenu, ...fundingMenu, ...assetMenu, ...edocMenu, ...bookingMenu, ...agreementMenu, ...notifyMenu, ...reportMenu]
+  const groups = [...ossMenu, ...otherMenu, ...erpMenu, ...strategicMenu, ...projectMenu, ...financeMenu, ...fundingMenu, ...assetMenu, ...edocMenu, ...bookingMenu, ...agreementMenu, ...notifyMenu, ...reportMenu, ...complaintMenu, ...ckbMenu]
   for (const g of groups) for (const c of g.children) out.push({ label: c.label, group: g.label, to: c.to })
   out.push({ label: 'ศูนย์แจ้งเตือน', group: 'ทั่วไป', to: '/notifications' }, { label: 'ตั้งค่าผู้ใช้งาน', group: 'ทั่วไป', to: '/profile' }, { label: 'ข่าวสาร', group: 'CODI APP', to: '/app/news' }, { label: 'ช่องทางการติดต่อ', group: 'CODI APP', to: '/app/contact' })
   return out.filter((x, i, a) => a.findIndex((y) => y.to === x.to && y.label === x.label) === i)

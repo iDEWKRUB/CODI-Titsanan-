@@ -60,6 +60,8 @@ const catSystems: Record<Cat, { label: string; icon: string; to?: string }[]> = 
     { label: 'ระบบบริหารจัดการสัญญา', icon: I.doc, to: '/agreement' },
     { label: 'ศูนย์แจ้งเตือนอัจฉริยะ', icon: I.news, to: '/notify' },
     { label: 'ระบบออกรายงานอัจฉริยะ', icon: I.chart, to: '/report' },
+    { label: 'ระบบรับเรื่องร้องเรียน', icon: I.help, to: '/complaint' },
+    { label: 'คลังความรู้กลาง (CKB)', icon: I.book, to: '/ckb' },
   ],
   oss: [
     { label: 'CODI OSS ภาพรวม', icon: I.chart, to: '/dashboard' },
