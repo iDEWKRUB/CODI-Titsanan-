@@ -69,7 +69,8 @@ export default function ProjectBudgetChart() {
           <Legend items={series} />
         </div>
 
-        <div ref={scroller} className="overflow-x-auto scrollbar-none">
+        {/* overflow-y-hidden: overflow-x:auto alone makes this a vertical scroller too, and the 1px of overflow below stole the first wheel tick */}
+        <div ref={scroller} className="overflow-x-auto overflow-y-hidden scrollbar-none">
           <div className="min-w-[1040px] pr-[24px] max-sm:min-w-[760px]">
             <div className="flex flex-col pl-[128px]">
               {projects.map((p, i) => (

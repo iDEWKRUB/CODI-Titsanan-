@@ -24,7 +24,8 @@ export default function OverviewStats() {
         src={overviewBg}
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute top-[-70px] right-[-200px] -z-10 w-[1500px] max-w-none select-none"
+        style={{ width: 'max(1500px, calc(100% + 200px))' }}
+        className="pointer-events-none absolute top-[-70px] right-[-200px] -z-10 max-w-none select-none"
       />
 
       <div className="flex items-center gap-[10px] pt-[28px] max-sm:pt-0">

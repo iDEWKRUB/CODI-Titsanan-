@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import iconTor from '../assets/tor/icon-clipboard-check.svg'
 import TorTabs from '../components/tor/TorTabs'
 import PageTitle from '../components/ui/PageTitle'
-import { torAsOf, torGroups, torStatusLabel, type TorItem, type TorStatus } from '../data/torCompliance'
+import { outsideScope, torAsOf, torGroups, torStatusLabel, type TorItem, type TorStatus } from '../data/torCompliance'
 
 const order: TorStatus[] = ['done', 'partial', 'todo', 'backend']
 
@@ -165,6 +165,11 @@ export default function TorPage() {
         </div>
       </section>
 
+      <div className="flex flex-wrap items-center gap-[10px] rounded-[10px] bg-blue-dark px-[16px] py-[10px] text-white-soft">
+        <span className="rounded-[6px] bg-white/15 px-[8px] py-[2px] text-[11px] font-semibold">PHASE 1 · ตาม TOR</span>
+        <span className="min-w-0 flex-1 text-[12px] font-light">6 ระบบในข้อ 4.7 + ข้อกำหนดข้อ 4–17 · ตัวเลขด้านบนนับเฉพาะส่วนนี้</span>
+      </div>
+
       {/* Filters (one row) */}
       <div className="flex flex-wrap items-center gap-[8px]">
         {(['all', ...order, 'risk'] as const).map((f) => (
@@ -211,6 +216,25 @@ export default function TorPage() {
           </section>
         )
       })}
+      <div className="mt-[8px] flex flex-wrap items-center gap-[10px] rounded-[10px] bg-gray-30 px-[16px] py-[10px] text-white-soft">
+        <span className="rounded-[6px] bg-white/15 px-[8px] py-[2px] text-[11px] font-semibold">นอกขอบเขต TOR</span>
+        <span className="min-w-0 flex-1 text-[12px] font-light">หน้า OSS ที่ทีมทำเพิ่มจาก Figma — TOR ข้อ 4.3 (7) ถือว่า OSS เป็นระบบเดิมที่ ERP ต้องเชื่อมต่อ จึงไม่อยู่ในสัญญา Phase 1 (ควรยืนยันกับ พอช.) · ไม่นับในตัวเลขด้านบน</span>
+      </div>
+      <section className="overflow-hidden rounded-[12px] border border-gray-line-2 bg-white">
+        <ul>
+          {outsideScope.map((o) => (
+            <li key={o.to} className="flex flex-wrap items-center gap-[8px] border-b border-gray-line-2 px-[24px] py-[12px] last:border-b-0 max-sm:px-[16px]">
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-medium text-black">{o.name}</p>
+                <p className="text-[12px] font-light text-gray-20">{o.note}</p>
+              </div>
+              <Link to={o.to} className="rounded-[8px] bg-blue-bg px-[12px] py-[6px] text-[12px] font-medium text-blue-00 transition-colors hover:bg-blue-20">
+                เปิดหน้า
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

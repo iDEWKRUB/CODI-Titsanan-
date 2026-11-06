@@ -79,6 +79,16 @@
   }
 }
 
+@keyframes shake {
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
 /* Survey result "PDF" export prints only the main content */
 @media print {
   aside,
@@ -91,4 +101,26 @@
   body {
     background: white;
   }
+}
+
+/* Leaflet round markers (OSS › แผนที่เชิงภูมิศาสตร์) */
+.codi-marker { background: transparent; border: 0; }
+.codi-marker span { display: flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 9999px; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); }
+.leaflet-container { font-family: inherit; }
+.codi-pin { background: transparent; border: 0; }
+
+/* Print / Save as PDF: only the page content */
+@media print {
+  @page { size: A4; margin: 14mm 12mm; }
+  aside, header, footer, .no-print, nav[aria-label="เมนูย่อย TOR"] { display: none !important; }
+  html, body, #root, .bg-shell { background: #fff !important; }
+  main { padding-top: 0 !important; }
+  pre { white-space: pre-wrap !important; word-break: break-word; overflow: visible !important; }
+  pre { break-inside: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@keyframes scan {
+  0% { top: -26px; }
+  100% { top: 100%; }
 }

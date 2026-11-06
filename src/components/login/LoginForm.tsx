@@ -15,6 +15,8 @@ type Props = {
   /** Return an error message to show under the fields, or nothing on success. */
   onSubmit?: (values: LoginValues) => string | void
   onDigitalId?: () => void
+  /** classes for the "เข้าสู่ระบบ" heading */
+  headingClass?: string
 }
 
 type Errors = Partial<Record<'email' | 'password', string>>
@@ -36,7 +38,7 @@ const inputClass =
 const linkClass =
   'rounded-[2px] text-[12px] font-semibold text-blue-10 transition-colors hover:text-blue-00 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-00'
 
-export default function LoginForm({ onSubmit, onDigitalId }: Props) {
+export default function LoginForm({ onSubmit, onDigitalId, headingClass = 'text-center text-[14px] leading-[normal] font-medium text-heading' }: Props) {
   const [values, setValues] = useState<LoginValues>({ email: '', password: '', remember: false })
   const [errors, setErrors] = useState<Errors>({})
   const [submitted, setSubmitted] = useState(false)
@@ -59,9 +61,9 @@ export default function LoginForm({ onSubmit, onDigitalId }: Props) {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-[12px] p-[24px] max-sm:px-0">
+    <div className="flex w-full flex-col items-center justify-center gap-[12px]">
       <form noValidate onSubmit={handleSubmit} className="flex w-full flex-col gap-[12px] px-[12px]">
-        <h2 className="text-center text-[14px] leading-[normal] font-medium text-heading">เข้าสู่ระบบ</h2>
+        <h2 className={`text-center ${headingClass}`}>เข้าสู่ระบบ</h2>
 
         <div className="flex w-full flex-col gap-[24px]">
           <div className="flex w-full flex-col items-center gap-[24px]">

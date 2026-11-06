@@ -1,14 +1,16 @@
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import iconSort from '../assets/dashboard/icon-sort.svg'
 import divider from '../assets/profile/divider.svg'
 import iconCaretDown from '../assets/profile/icon-caret-down.svg'
 import iconGearBlue from '../assets/profile/icon-gear-blue.svg'
-import iconGear from '../assets/profile/icon-gear.svg'
-import iconMapPin from '../assets/profile/icon-map-pin.svg'
-import iconNotePencil from '../assets/profile/icon-note-pencil.svg'
 import iconPin from '../assets/profile/icon-push-pin.svg'
 import iconPlus from '../assets/profile/icon-plus.svg'
+import useDismiss from '../components/ui/useDismiss'
+import { pinCatalogFor, systems } from '../data/navigation'
+import { useSystem } from '../lib/systemStore'
 import { loginHistory, profile } from '../data/profile'
+import { MAX_PINS, addPin, movePin, removePin, resetPins, usePins } from '../lib/pinStore'
 
 const panel = 'flex min-w-0 flex-col gap-[12px] rounded-[12px] bg-blue-gray p-[12px]'
 const panelTitle = 'text-[16px] leading-[normal] font-medium text-[#000]'
@@ -31,11 +33,113 @@ function Field({ label, value }: { label: string; value: string }) {
   )
 }
 
-const pinned = [
-  { label: 'ยื่นคำขอจดทะเบียนสภาองค์กร', icon: iconNotePencil },
-  { label: 'จัดการสถานการณ์โครงการ', icon: iconGear },
-  { label: 'จัดการพื้นที่สำรวจ', icon: iconMapPin },
-]
+/** The same person has separate pins per system — show which system is being set up */
+function SystemTag() {
+  const system = useSystem()
+  const name = systems.find((s) => s.key === system)?.name
+  return <span className="rounded-full bg-blue-bg px-[12px] py-[4px] text-[12px] font-medium text-blue-00" title="ปักหมุดแยกตามระบบ สลับระบบได้ที่โลโก้มุมซ้ายบน">ตั้งค่าของ {name}</span>
+}
+
+const arrow = (up: boolean) => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d={up ? 'm4 10 4-4 4 4' : 'm4 6 4 4 4-4'} />
+  </svg>
+)
+const rowBtn = 'flex size-[28px] shrink-0 items-center justify-center rounded-[5px] text-gray-30 transition-colors hover:bg-gray-subtle hover:text-blue-00 focus-visible:outline-2 focus-visible:outline-blue-00 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-gray-30'
+
+/** Pinned systems: the same list drives the sidebar's "ปักหมุดระบบที่ใช้งานประจำ" section */
+function PinnedSystems() {
+  const system = useSystem()
+  const pinCatalog = pinCatalogFor(system)
+  const pins = usePins()
+  const [open, setOpen] = useState(false)
+  const root = useRef<HTMLDivElement>(null)
+  useDismiss(open, root, () => setOpen(false))
+  const items = pins.map((to) => pinCatalog.find((p) => p.to === to)).filter((p): p is NonNullable<typeof p> => !!p)
+  const rest = pinCatalog.filter((p) => !pins.includes(p.to))
+  const groups = [...new Set(rest.map((p) => p.group))]
+  const full = pins.length >= MAX_PINS
+
+  return (
+    <>
+      {items.length === 0 ? (
+        <p className={`${card} p-[24px] text-center text-[13px] font-light text-gray-20`}>ยังไม่ได้ปักหมุดระบบ เลือกจาก “เพิ่มรายการ” ด้านล่าง</p>
+      ) : (
+        <ul className={`${card} flex flex-col gap-[10px] p-[24px] max-sm:p-[16px]`}>
+          {items.map((p, i) => (
+            <li key={p.to} className="flex flex-col gap-[10px]">
+              {i > 0 && <img src={divider} alt="" aria-hidden="true" className="block h-[16px] w-full" />}
+              <div className="flex items-center gap-[6px]">
+                <Link to={p.to} className="flex min-h-[46px] min-w-0 flex-1 items-center gap-[14px] rounded-[8px] px-[14px] py-[6px] transition-colors hover:bg-gray-subtle focus-visible:outline-2 focus-visible:outline-blue-00">
+                  <img src={p.icon} alt="" width={18} height={18} className="shrink-0" />
+                  <span className="flex min-w-0 flex-col">
+                    <span className="truncate text-[14px] leading-[normal] font-light text-black">{p.label}</span>
+                    <span className="truncate text-[10px] font-light text-gray-20">{p.group}</span>
+                  </span>
+                </Link>
+                <button type="button" aria-label={`เลื่อน ${p.label} ขึ้น`} disabled={i === 0} onClick={() => movePin(p.to, -1)} className={rowBtn}>{arrow(true)}</button>
+                <button type="button" aria-label={`เลื่อน ${p.label} ลง`} disabled={i === items.length - 1} onClick={() => movePin(p.to, 1)} className={rowBtn}>{arrow(false)}</button>
+                <button
+                  type="button"
+                  aria-label={`เลิกปักหมุด ${p.label}`}
+                  title="เลิกปักหมุด"
+                  onClick={() => removePin(p.to)}
+                  className="flex size-[38px] shrink-0 items-center justify-center rounded-[5px] p-[4px] transition-colors hover:bg-gray-subtle focus-visible:outline-2 focus-visible:outline-blue-00"
+                >
+                  <img src={iconPin} alt="" width={28} height={28} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div ref={root} className="relative">
+        <button
+          type="button"
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          disabled={full || rest.length === 0}
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-[46px] w-full items-center gap-[14px] rounded-[8px] border border-gray-line-2 bg-white px-[14px] py-[12px] text-left transition-colors hover:border-gray-line focus-visible:outline-2 focus-visible:outline-blue-00 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <img src={iconPlus} alt="" width={18} height={18} />
+          <span className="flex-1 text-[14px] leading-[normal] font-light text-black">{full ? `ปักหมุดครบ ${MAX_PINS} รายการแล้ว` : 'เพิ่มรายการ'}</span>
+          <img src={iconCaretDown} alt="" width={18} height={18} className={open ? 'rotate-180' : ''} />
+        </button>
+        {open && (
+          <div role="listbox" aria-label="เลือกระบบที่จะปักหมุด" className="absolute top-[calc(100%+6px)] right-0 left-0 z-30 max-h-[320px] overflow-y-auto rounded-[10px] border border-gray-line-2 bg-white p-[6px] shadow-[0_8px_24px_rgba(0,0,0,0.14)]">
+            {groups.map((g) => (
+              <div key={g} role="group" aria-label={g}>
+                <p className="px-[10px] pt-[8px] pb-[2px] text-[10px] font-medium text-gray-20">{g}</p>
+                {rest.filter((p) => p.group === g).map((p) => (
+                  <button
+                    key={p.to}
+                    type="button"
+                    role="option"
+                    aria-selected="false"
+                    onClick={() => {
+                      addPin(p.to)
+                      if (pins.length + 1 >= MAX_PINS || rest.length <= 1) setOpen(false)
+                    }}
+                    className="flex w-full items-center gap-[12px] rounded-[8px] px-[10px] py-[8px] text-left text-[13px] font-light transition-colors hover:bg-blue-bg focus-visible:outline-2 focus-visible:outline-blue-00"
+                  >
+                    <img src={p.icon} alt="" width={16} height={16} className="shrink-0" />
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex items-center justify-between gap-[8px] text-[11px] font-light text-gray-20">
+        <span>ปักหมุดแล้ว {pins.length}/{MAX_PINS} · แสดงที่เมนูด้านซ้ายตามลำดับนี้</span>
+        <button type="button" onClick={resetPins} className="text-blue-00 underline-offset-2 hover:underline">คืนค่าเริ่มต้น</button>
+      </div>
+    </>
+  )
+}
 
 const deviceBadge = { Desktop: 'bg-yellow', Mobile: 'bg-green' }
 const columns = ['วันที่', 'แพลตฟอร์ม', 'เบราว์เซอร์', 'อุปกรณ์']
@@ -50,6 +154,7 @@ export default function ProfilePage() {
       <div className="flex items-center gap-[10px]">
         <img src={iconGearBlue} alt="" width={24} height={24} />
         <h1 className="text-[20px] leading-[1.2] font-semibold text-blue-00">ตั้งค่าผู้ใช้งาน</h1>
+        <SystemTag />
       </div>
 
       <nav aria-label="Breadcrumb" className="mt-[24px] flex gap-[6px] text-[12px] whitespace-nowrap">
@@ -86,34 +191,7 @@ export default function ProfilePage() {
           <h2 id="profile-pins" className={panelTitle}>
             ปักหมุดระบบที่ใช้งานประจำ
           </h2>
-          <ul className={`${card} flex flex-col gap-[10px] p-[24px] max-sm:p-[16px]`}>
-            {pinned.map((p, i) => (
-              <li key={p.label} className="flex flex-col gap-[10px]">
-                {i > 0 && <img src={divider} alt="" aria-hidden="true" className="block h-[16px] w-full" />}
-                <div className="flex items-center gap-[10px]">
-                  <div className="flex h-[46px] min-w-0 flex-1 items-center gap-[14px] px-[14px] pt-[8px] pb-[2px]">
-                    <img src={p.icon} alt="" width={18} height={18} className="shrink-0" />
-                    <span className="truncate text-[14px] leading-[normal] font-light text-black">{p.label}</span>
-                  </div>
-                  <button
-                    type="button"
-                    aria-label={`ปักหมุด ${p.label}`}
-                    className="flex size-[38px] shrink-0 items-center justify-center rounded-[5px] p-[4px] transition-colors hover:bg-gray-subtle focus-visible:outline-2 focus-visible:outline-blue-00"
-                  >
-                    <img src={iconPin} alt="" width={28} height={28} />
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            className="flex h-[46px] w-full items-center gap-[14px] rounded-[8px] border border-gray-line-2 bg-white px-[14px] py-[12px] text-left transition-colors hover:border-gray-line focus-visible:outline-2 focus-visible:outline-blue-00"
-          >
-            <img src={iconPlus} alt="" width={18} height={18} />
-            <span className="flex-1 text-[14px] leading-[normal] font-light text-black">เพิ่มรายการ</span>
-            <img src={iconCaretDown} alt="" width={18} height={18} />
-          </button>
+          <PinnedSystems />
         </section>
       </div>
 

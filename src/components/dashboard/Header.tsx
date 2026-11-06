@@ -1,11 +1,11 @@
-import codiLogo from '../../assets/login/logo-codi.webp'
-import arrowDropDown from '../../assets/dashboard/arrow-drop-down.svg'
 import iconBell from '../../assets/dashboard/icon-bell.svg'
 import iconSearch from '../../assets/dashboard/icon-search.svg'
 import iconSidebar from '../../assets/dashboard/icon-sidebar.svg'
 import iconSignOut from '../../assets/dashboard/icon-sign-out.svg'
 import type { User } from '../../lib/auth'
+import { useUnreadCount } from '../../lib/notifStore'
 import { Link } from 'react-router-dom'
+import SystemSwitcher from './SystemSwitcher'
 import UserMenu from './UserMenu'
 
 type Props = {
@@ -21,16 +21,13 @@ const iconButton =
   'flex shrink-0 items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-00'
 
 export default function Header({ user, railMode, sidebarExpanded, onToggleSidebar, onLogout }: Props) {
+  const unread = useUnreadCount()
   return (
     <header className="relative z-20 flex h-[57px] items-center gap-[8px] px-[16px] sm:px-[24px]">
       <div className="flex min-w-0 flex-1 items-center gap-[8px]">
         {railMode ? (
-          <div className="mr-[16px] flex shrink-0 items-center gap-[10px]">
-            <img src={codiLogo} alt="CODI" width={56} height={56} className="size-[56px] object-contain" />
-            <span className="text-[16px] leading-[normal] font-semibold whitespace-nowrap text-black">CODI OSS</span>
-            <button type="button" aria-label="เลือกระบบ" className={`${iconButton} rounded-[4px] p-px hover:bg-gray-subtle`}>
-              <img src={arrowDropDown} alt="" width={14} height={14} />
-            </button>
+          <div className="mr-[16px] shrink-0">
+            <SystemSwitcher tone="light" />
           </div>
         ) : (
           <button
@@ -56,11 +53,13 @@ export default function Header({ user, railMode, sidebarExpanded, onToggleSideba
       </div>
 
       <div className="flex shrink-0 items-center gap-[12px]">
-        <Link to="/notifications" aria-label="การแจ้งเตือน 15 รายการ" className={`${iconButton} relative rounded-[8px] bg-blue-tint p-[10px] hover:brightness-95`}>
+        <Link to="/notifications" aria-label={unread ? `การแจ้งเตือนใหม่ ${unread} รายการ` : 'การแจ้งเตือน ไม่มีรายการใหม่'} className={`${iconButton} relative rounded-[8px] bg-blue-tint p-[10px] hover:brightness-95`}>
           <img src={iconBell} alt="" width={18} height={18} />
-          <span className="absolute top-[6px] right-[6px] flex size-[14px] items-center justify-center p-[2px]">
-            <span className="flex items-center justify-center rounded-[10px] bg-red px-[2px] font-urbanist text-[8px] leading-[1.3] text-[#fbfbfc]">15</span>
-          </span>
+          {unread > 0 && (
+            <span className="absolute top-[6px] right-[6px] flex size-[14px] items-center justify-center p-[2px]">
+              <span className="flex items-center justify-center rounded-[10px] bg-red px-[2px] font-urbanist text-[8px] leading-[1.3] text-[#fbfbfc]">{unread > 99 ? '99+' : unread}</span>
+            </span>
+          )}
         </Link>
         <UserMenu user={user} onLogout={onLogout} />
         <span aria-hidden="true" className="h-[20px] w-px bg-gray-line max-sm:hidden" />

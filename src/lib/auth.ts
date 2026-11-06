@@ -4,7 +4,7 @@ export type User = { email: string; name: string; initials: string }
 const DEMO_ACCOUNT = {
   email: 'demo@codi.or.th',
   password: '123456',
-  user: { email: 'demo@codi.or.th', name: 'ปรียาดา เจริญรัตนะ', initials: 'PJ' } satisfies User,
+  user: { email: 'demo@codi.or.th', name: 'ปริยดา เจริญวัฒนกุล', initials: 'PJ' } satisfies User,
 }
 
 const KEY = 'codi.session'
@@ -29,4 +29,12 @@ export function currentUser(): User | null {
   } catch {
     return null
   }
+}
+
+/** Demo ThaiD sign-in: the real system exchanges the OIDC code from ThaiD (DOPA) for the citizen ID and maps it to a staff account */
+export const THAID_DEMO = { pid: '1103700012345', name: 'ปริยดา เจริญวัฒนกุล', nameEn: 'Priyada Charoenwattanakul', birth: '14/02/2535', staffCode: 'E-0412' }
+export function loginWithThaiD(): User {
+  const user = { ...DEMO_ACCOUNT.user, method: 'thaid' } as User
+  localStorage.setItem(KEY, JSON.stringify(user))
+  return user
 }

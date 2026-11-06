@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toneOf, useActingUser } from '../../lib/actingUser'
 import type { User } from '../../lib/auth'
 
 type Props = { user: User; onLogout: () => void }
 
 /** Name + avatar trigger with the "User/Dropdown/Default" popover (Figma 126:9470). */
-export default function UserMenu({ user, onLogout }: Props) {
+export default function UserMenu({ onLogout }: Props) {
+  const me = useActingUser()
+  const [bg, fg] = toneOf(me.name, me.isSelf)
   const [open, setOpen] = useState(false)
   const root = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
@@ -32,11 +35,12 @@ export default function UserMenu({ user, onLogout }: Props) {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label={`เมนูผู้ใช้งาน: ${me.name} (${me.role})`}
         className="flex items-center gap-[12px] rounded-[32px] transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-00"
       >
-        <span className="hidden max-w-[86px] truncate text-[12px] leading-[normal] text-heading md:block">{user.name}</span>
-        <span className="flex size-[40px] shrink-0 items-center justify-center rounded-[32px] bg-red-light p-[2px] font-poppins text-[16px] leading-[1.2] tracking-[0.64px] text-gray-30">
-          {user.initials}
+        <span className="hidden max-w-[150px] flex-col text-right leading-[1.25] md:flex"><span className="truncate text-[12px] text-heading">{me.name}</span><span className="truncate text-[10px] font-light text-gray-20">{me.role}</span></span>
+        <span title={me.name} style={{ background: bg, color: fg }} className={`flex size-[40px] shrink-0 items-center justify-center overflow-hidden rounded-[32px] p-[2px] leading-[1.2] ${me.isSelf ? 'font-poppins text-[16px] tracking-[0.64px]' : 'text-[15px] font-medium'}`}>
+          {me.photo ? <img src={me.photo} alt="" className="size-full rounded-full object-cover" /> : me.initials}
         </span>
       </button>
 

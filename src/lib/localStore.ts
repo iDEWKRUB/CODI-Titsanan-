@@ -26,6 +26,7 @@ export function makeStore<T extends { id: number }>(key: string, seed: () => T[]
         },
         () => list,
       ),
+    all: () => list,
     get: (id: number) => list.find((x) => x.id === id),
     next: () => list.reduce((n, x) => Math.max(n, x.id), 0) + 1,
     /** Insert (newest first) or replace by id */
