@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import iconSquares from '../assets/dashboard/icon-squares-four-blue.svg'
 import PageTitle from '../components/ui/PageTitle'
-import { erpMenu, financeMain, financeMenu, fundingMain, fundingMenu, hrMain, hrMenu, assetMain, assetMenu, edocMain, edocMenu, bookingMain, bookingMenu, agreementMain, agreementMenu, mainMenu, ossMenu, otherMenu, pinCatalogFor, projectMain, projectMenu, sarabanMain, strategicMain, strategicMenu } from '../data/navigation'
+import { erpMenu, financeMain, financeMenu, fundingMain, fundingMenu, hrMain, hrMenu, assetMain, assetMenu, edocMain, edocMenu, bookingMain, bookingMenu, agreementMain, agreementMenu, notifyMain, notifyMenu, mainMenu, ossMenu, otherMenu, pinCatalogFor, projectMain, projectMenu, sarabanMain, strategicMain, strategicMenu } from '../data/navigation'
 import { useSystem } from '../lib/systemStore'
 import { MAX_PINS, addPin, removePin, usePins } from '../lib/pinStore'
 
@@ -34,11 +34,11 @@ function PinToggle({ to, label }: { to: string; label: string }) {
 export default function AllMenuPage() {
   const system = useSystem()
   const saraban = system !== 'oss'
-  const sysName = ({ strategic: 'ERP STRATEGIC', project: 'ERP PROJECT', finance: 'ERP FINANCE', funding: 'ERP FUNDING', hr: 'ERP HR', agreement: 'ERP AGREEMENT', booking: 'ERP BOOKING', asset: 'ERP ASSET', edoc: 'ERP DOCUMENT', saraban: 'ERP SARABAN', oss: '' } as Record<string, string>)[system]
-  const sysTitle = system === 'strategic' ? 'เมนูทั้งหมดของยุทธศาสตร์' : system === 'project' ? 'เมนูทั้งหมดของโครงการ' : system === 'finance' ? 'เมนูทั้งหมดของการเงิน' : system === 'funding' ? 'เมนูทั้งหมดของกองทุน' : system === 'hr' ? 'เมนูทั้งหมดของทรัพยากรบุคคล' : system === 'agreement' ? 'เมนูทั้งหมดของงานสัญญา' : system === 'booking' ? 'เมนูทั้งหมดของงานจองออนไลน์' : system === 'asset' ? 'เมนูทั้งหมดของงานพัสดุ' : system === 'edoc' ? 'เมนูทั้งหมดของงานนำเข้าเอกสาร' : 'เมนูทั้งหมดของสารบรรณ'
-  const groups = system === 'strategic' ? strategicMenu : system === 'project' ? projectMenu : system === 'finance' ? financeMenu : system === 'funding' ? fundingMenu : system === 'hr' ? hrMenu : system === 'agreement' ? agreementMenu : system === 'booking' ? bookingMenu : system === 'asset' ? assetMenu : system === 'edoc' ? edocMenu : system === 'saraban' ? erpMenu : [...ossMenu, ...otherMenu]
+  const sysName = ({ strategic: 'ERP STRATEGIC', project: 'ERP PROJECT', finance: 'ERP FINANCE', funding: 'ERP FUNDING', hr: 'ERP HR', notify: 'AI NOTIFICATION', agreement: 'ERP AGREEMENT', booking: 'ERP BOOKING', asset: 'ERP ASSET', edoc: 'ERP DOCUMENT', saraban: 'ERP SARABAN', oss: '' } as Record<string, string>)[system]
+  const sysTitle = system === 'strategic' ? 'เมนูทั้งหมดของยุทธศาสตร์' : system === 'project' ? 'เมนูทั้งหมดของโครงการ' : system === 'finance' ? 'เมนูทั้งหมดของการเงิน' : system === 'funding' ? 'เมนูทั้งหมดของกองทุน' : system === 'hr' ? 'เมนูทั้งหมดของทรัพยากรบุคคล' : system === 'notify' ? 'เมนูทั้งหมดของศูนย์แจ้งเตือน' : system === 'agreement' ? 'เมนูทั้งหมดของงานสัญญา' : system === 'booking' ? 'เมนูทั้งหมดของงานจองออนไลน์' : system === 'asset' ? 'เมนูทั้งหมดของงานพัสดุ' : system === 'edoc' ? 'เมนูทั้งหมดของงานนำเข้าเอกสาร' : 'เมนูทั้งหมดของสารบรรณ'
+  const groups = system === 'strategic' ? strategicMenu : system === 'project' ? projectMenu : system === 'finance' ? financeMenu : system === 'funding' ? fundingMenu : system === 'hr' ? hrMenu : system === 'notify' ? notifyMenu : system === 'agreement' ? agreementMenu : system === 'booking' ? bookingMenu : system === 'asset' ? assetMenu : system === 'edoc' ? edocMenu : system === 'saraban' ? erpMenu : [...ossMenu, ...otherMenu]
   const shortcuts = saraban
-    ? [...({ strategic: strategicMain, project: projectMain, finance: financeMain, funding: fundingMain, hr: hrMain, agreement: agreementMain, booking: bookingMain, asset: assetMain, edoc: edocMain, saraban: sarabanMain, oss: sarabanMain })[system].filter((m) => !['/saraban', '/saraban/docs', '/strategic', '/project', '/finance', '/funding', '/hr', '/asset', '/edoc', '/booking', '/agreement'].includes(m.to)).map((m) => ({ label: m.label, to: m.to })), { label: 'ตั้งค่าผู้ใช้งาน', to: '/profile' }]
+    ? [...({ strategic: strategicMain, project: projectMain, finance: financeMain, funding: fundingMain, hr: hrMain, notify: notifyMain, agreement: agreementMain, booking: bookingMain, asset: assetMain, edoc: edocMain, saraban: sarabanMain, oss: sarabanMain })[system].filter((m) => !['/saraban', '/saraban/docs', '/strategic', '/project', '/finance', '/funding', '/hr', '/asset', '/edoc', '/booking', '/agreement', '/notify'].includes(m.to)).map((m) => ({ label: m.label, to: m.to })), { label: 'ตั้งค่าผู้ใช้งาน', to: '/profile' }]
     : [...mainMenu.map((m) => ({ label: m.label, to: m.to })), { label: 'ยื่นคำขอจดทะเบียนสภาองค์กรชุมชน', to: '/council-registration' }, { label: 'ตั้งค่าผู้ใช้งาน', to: '/profile' }]
 
   return (
@@ -53,7 +53,7 @@ export default function AllMenuPage() {
       </nav>
 
       <p className="-mt-[8px] max-w-[720px] text-[13px] leading-[1.7] font-light text-gray-20">
-        {saraban ? `ทุกเมนูของระบบ ${sysName} (เล่มที่ 3 ข้อ ${({ strategic: '2.1.2', project: '2.1.3', finance: '2.1.4', funding: '2.1.5', hr: '2.1.6', agreement: '2.3.1', booking: '2.1.10', asset: '2.1.8', edoc: '2.1.11', saraban: '2.1.7', oss: '' } as Record<string, string>)[system]}) กดไอคอนหมุดเพื่อปักไว้ที่เมนูซ้าย ปักหมุดตั้งแยกตามระบบ` : 'ระบบให้บริการแบบครบวงจร (CODI OSS) จัดเมนูตามรายงานการออกแบบระบบ เล่มที่ 3 ข้อ 2.2 และระบบอื่น ๆ ข้อ 2.3–2.4'}
+        {saraban ? `ทุกเมนูของระบบ ${sysName} (เล่มที่ 3 ข้อ ${({ strategic: '2.1.2', project: '2.1.3', finance: '2.1.4', funding: '2.1.5', hr: '2.1.6', notify: '2.5.2', agreement: '2.3.1', booking: '2.1.10', asset: '2.1.8', edoc: '2.1.11', saraban: '2.1.7', oss: '' } as Record<string, string>)[system]}) กดไอคอนหมุดเพื่อปักไว้ที่เมนูซ้าย ปักหมุดตั้งแยกตามระบบ` : 'ระบบให้บริการแบบครบวงจร (CODI OSS) จัดเมนูตามรายงานการออกแบบระบบ เล่มที่ 3 ข้อ 2.2 และระบบอื่น ๆ ข้อ 2.3–2.4'}
       </p>
 
       <div className="grid grid-cols-3 gap-[16px] max-lg:grid-cols-2 max-sm:grid-cols-1">

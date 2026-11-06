@@ -3,6 +3,8 @@ import { aPersonas } from '../data/erpAsset'
 import { bPersonas } from '../data/erpBooking'
 import { gPersonasA } from '../data/erpAgreement'
 import { useBPersona } from './bookingStore'
+import { nPersonas } from '../data/erpNotify'
+import { useNPersona } from './notifyStore'
 import { useGPersona as useAgrPersona } from './agreementStore'
 import { fPersonas } from '../data/erpFinance'
 import { gPersonas } from '../data/erpFunding'
@@ -52,6 +54,7 @@ export function useActingUser(): Acting {
   const strat = usePersona()
   const asset = useAPersona()
   const booking = useBPersona()
+  const notify = useNPersona()
   const agreement = useAgrPersona()
   const user = currentUser()
   // one person record for everyone: the HR employee list (photo + name edited in ERP HR › ข้อมูลของฉัน)
@@ -67,6 +70,7 @@ export function useActingUser(): Acting {
   else if (at('/funding')) who = { name: gPersonas[fund].name, role: gPersonas[fund].short }
   else if (at('/hr')) who = { name: hPersonas[hr].name, role: hPersonas[hr].short }
   else if (at('/booking')) who = { name: bPersonas[booking].name, role: bPersonas[booking].short }
+  else if (at('/notify')) who = { name: nPersonas[notify].name, role: nPersonas[notify].short }
   else if (at('/agreement')) who = { name: gPersonasA[agreement].name, role: gPersonasA[agreement].short }
   else if (at('/asset')) who = { name: aPersonas[asset].name, role: aPersonas[asset].short }
   else if (at('/saraban')) who = { name: people[sar].name, role: people[sar].pos }

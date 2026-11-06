@@ -58,6 +58,7 @@ const catSystems: Record<Cat, { label: string; icon: string; to?: string }[]> = 
     { label: 'ระบบนำเข้าเอกสาร', icon: I.upload, to: '/edoc' },
     { label: 'ระบบจองออนไลน์', icon: I.meet, to: '/booking' },
     { label: 'ระบบบริหารจัดการสัญญา', icon: I.doc, to: '/agreement' },
+    { label: 'ศูนย์แจ้งเตือนอัจฉริยะ', icon: I.news, to: '/notify' },
   ],
   oss: [
     { label: 'CODI OSS ภาพรวม', icon: I.chart, to: '/dashboard' },
@@ -243,11 +244,11 @@ export default function CodiAppHomePage() {
                 <Art k={c.key} />
                 <span className="text-[15px] font-semibold text-black">{c.title}</span>
                 <span className="text-[11px] font-light text-gray-20">{c.desc}</span>
-                {cat === c.key && <span aria-hidden="true" className="absolute -bottom-[9px] left-1/2 size-[16px] -translate-x-1/2 rotate-45 border-r border-b border-[#9cc7f5] bg-[#f3f8ff]" />}
+                {cat === c.key && <span aria-hidden="true" className="absolute -bottom-[9px] left-1/2 size-[16px] -translate-x-1/2 rotate-45 border-r border-b border-[#9cc7f5] bg-[#dbe8fb]" />}
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-[12px] rounded-[20px] bg-[linear-gradient(120deg,#dceafc,#f3f0fb_55%,#fde8e0)] p-[20px] max-md:grid-cols-2 max-sm:grid-cols-1">
+          <div className="grid grid-cols-3 gap-[12px] rounded-[20px] bg-[linear-gradient(120deg,#c6dbf8,#e4dcf6_55%,#f8d2c4)] p-[20px] max-md:grid-cols-2 max-sm:grid-cols-1">
             {catSystems[cat].map((s) => {
               const inner = <><span className="text-blue-dark"><Ic d={s.icon} s={22} /></span><span className="text-[13px] font-medium">{s.label}</span></>
               return s.to ? <Link key={s.label} to={s.to} className="flex h-[64px] items-center justify-center gap-[10px] rounded-[12px] bg-white/90 px-[12px] shadow-[0_2px_10px_rgba(0,40,120,0.08)] transition hover:bg-white hover:shadow-md">{inner}</Link> : <div key={s.label} aria-disabled="true" className="flex h-[64px] items-center justify-center gap-[10px] rounded-[12px] bg-white/60 px-[12px] text-gray-20 opacity-70">{inner}</div>

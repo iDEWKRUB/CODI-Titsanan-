@@ -80,7 +80,7 @@ const social = [
 export default function AppShell({ children, hero }: { children: ReactNode; hero?: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-white text-black">
-      <div className={`relative overflow-hidden ${hero ? 'mx-auto w-full max-w-[1280px] rounded-b-[40px] max-md:rounded-b-[24px]' : ''} bg-[linear-gradient(180deg,#ffffff_0%,#eef4ff_55%,#dfe8fb_100%)]`}>
+      <div className={`relative overflow-hidden ${hero ? 'mx-auto w-full max-w-[1280px] rounded-b-[40px] max-md:rounded-b-[24px]' : ''} bg-[linear-gradient(180deg,#f4f8ff_0%,#dbe7fd_55%,#c3d5f6_100%)]`}>
         <span aria-hidden="true" className="pointer-events-none absolute -top-[120px] -right-[120px] size-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,170,190,0.45),transparent_65%)]" />
         <span aria-hidden="true" className="pointer-events-none absolute -bottom-[160px] -left-[100px] size-[380px] rounded-full bg-[radial-gradient(circle,rgba(150,190,255,0.4),transparent_65%)]" />
         {hero && <img src={logo} alt="" aria-hidden="true" className="pointer-events-none absolute top-[56px] -right-[80px] h-[180px] w-[250px] object-cover object-top opacity-90 max-md:hidden" />}
