@@ -284,6 +284,20 @@ export const notifyMenu: OssGroup[] = [
   },
 ]
 
+/** AUTOMATION INTELLIGENCE REPORT — งานออกรายงานอัจฉริยะ (§2.5.1) */
+export const reportMenu: OssGroup[] = [
+  {
+    ref: '2.5.1',
+    label: 'งานออกรายงานอัจฉริยะ',
+    to: '/report',
+    icon: iconManage,
+    children: [
+      { label: 'ผู้ช่วยสร้างรายงาน', to: '/report', end: true },
+      { label: 'สร้าง Dashboard ใหม่', to: '/report/dashboard/new' },
+    ],
+  },
+]
+
 export const hrMenu: OssGroup[] = [
   {
     ref: '2.1.6',
@@ -382,6 +396,7 @@ export const systems = [
   { key: 'finance' as const, name: 'ERP FINANCE', desc: 'งานงบประมาณและการเงิน', home: '/finance' },
   { key: 'funding' as const, name: 'ERP FUNDING', desc: 'งานบริหารกองทุน', home: '/funding' },
   { key: 'hr' as const, name: 'ERP HR', desc: 'งานบริหารจัดการทรัพยากรบุคคล', home: '/hr' },
+  { key: 'report' as const, name: 'AI REPORT', desc: 'งานออกรายงานอัจฉริยะ', home: '/report' },
   { key: 'notify' as const, name: 'AI NOTIFICATION', desc: 'ศูนย์แจ้งเตือนอัจฉริยะ', home: '/notify' },
   { key: 'agreement' as const, name: 'ERP AGREEMENT', desc: 'งานบริหารจัดการสัญญา', home: '/agreement' },
   { key: 'booking' as const, name: 'ERP BOOKING', desc: 'งานจองออนไลน์', home: '/booking' },
@@ -449,6 +464,12 @@ export const notifyMain: NavItem[] = [
   { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
   { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
 ]
+export const reportMain: NavItem[] = [
+  { label: 'ผู้ช่วยสร้างรายงาน', to: '/report', icon: iconHouseGray, activeIcon: iconHouse, end: true },
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
+  { label: 'คู่มือการใช้งาน', to: '/manual', icon: iconNote },
+  { label: 'แจ้งปัญหาการใช้งาน', to: '/support', icon: iconInfo },
+]
 export const hrMain: NavItem[] = [
   { label: 'ข้อมูลของฉัน', to: '/hr', icon: iconHouseGray, activeIcon: iconHouse, end: true },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell },
@@ -499,6 +520,7 @@ const routeIcon: Record<string, string> = {
   '/hr/career': line('M4 20V14h4v6M10 20V9h4v11M16 20V4h4v16'),
   '/hr/career/new': line('M5 12l5 5L20 7'),
   '/hr/payroll': line('M3 6h18v12H3ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z'),
+  '/report/dashboard/new': line('M4 4h7v7H4ZM13 4h7v7h-7ZM4 13h7v7H4ZM13 13h7v7h-7Z'),
   '/notify/mine': line('M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7ZM10 20a2 2 0 0 0 4 0'),
   '/notify/settings': line('M4 6h16M4 12h16M4 18h16M8 4v4M16 10v4M10 16v4'),
   '/agreement/new': line('M12 5v14M5 12h14'),
@@ -553,6 +575,10 @@ export const hrPinCatalog: PinItem[] = [
   ...hrMenu.flatMap((g) => g.children.map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ].filter((p, i, a) => a.findIndex((x) => x.to === p.to) === i)
+export const reportPinCatalog: PinItem[] = [
+  ...reportMenu.flatMap((g) => g.children.filter((c) => c.to !== '/report').map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
+  { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
+]
 export const notifyPinCatalog: PinItem[] = [
   ...notifyMenu.flatMap((g) => g.children.filter((c) => c.to !== '/notify').map((c) => ({ label: c.label, to: c.to, icon: routeIcon[c.to] ?? g.icon, group: g.label }))),
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
@@ -573,7 +599,8 @@ export const edocPinCatalog: PinItem[] = [
   { label: 'นำเข้าเอกสาร', to: '/edoc/upload', icon: routeIcon['/edoc/upload'] ?? iconManage, group: 'งานนำเข้าเอกสาร' },
   { label: 'ศูนย์แจ้งเตือน', to: '/notifications', icon: iconBell, group: 'ทั่วไป' },
 ]
-export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking' | 'agreement' | 'notify') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, notify: notifyPinCatalog, agreement: agreementPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const pinCatalogFor = (system: 'oss' | 'saraban' | 'strategic' | 'project' | 'finance' | 'funding' | 'hr' | 'asset' | 'edoc' | 'booking' | 'agreement' | 'notify' | 'report') => ({ saraban: sarabanPinCatalog, strategic: strategicPinCatalog, project: projectPinCatalog, finance: financePinCatalog, funding: fundingPinCatalog, hr: hrPinCatalog, report: reportPinCatalog, notify: notifyPinCatalog, agreement: agreementPinCatalog, booking: bookingPinCatalog, asset: assetPinCatalog, edoc: edocPinCatalog, oss: pinCatalog })[system]
+export const defaultReportPins = ['/report/dashboard/new']
 export const defaultNotifyPins = ['/notify/mine', '/notify/settings']
 export const defaultAgreementPins = ['/agreement/new', '/agreement/registry', '/agreement/review', '/agreement/sign']
 export const defaultBookingPins = ['/booking/room', '/booking/vehicle', '/booking/zoom', '/booking/borrow']

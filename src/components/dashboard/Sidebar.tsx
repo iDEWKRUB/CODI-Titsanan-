@@ -7,7 +7,7 @@ import { useUnreadCount } from '../../lib/notifStore'
 import { usePins } from '../../lib/pinStore'
 import { useSystem } from '../../lib/systemStore'
 import SystemSwitcher from './SystemSwitcher'
-import { allMenuItem, financeMain, fundingMain, hrMain, assetMain, edocMain, bookingMain, agreementMain, notifyMain, mainMenu, pinCatalogFor, projectMain, sarabanMain, strategicMain, type NavItem as Item } from '../../data/navigation'
+import { allMenuItem, financeMain, fundingMain, hrMain, assetMain, edocMain, bookingMain, agreementMain, notifyMain, reportMain, mainMenu, pinCatalogFor, projectMain, sarabanMain, strategicMain, type NavItem as Item } from '../../data/navigation'
 
 type Props = {
   /** Icon-only rail (desktop). Ignored inside the mobile drawer. */
@@ -116,7 +116,7 @@ export default function Sidebar({ collapsed, onExpand, onNavigate }: Props) {
   const listPad = collapsed ? 'px-0' : 'px-[12px]'
   const system = useSystem()
   const isSaraban = system !== 'oss'
-  const mainOf = { saraban: sarabanMain, strategic: strategicMain, project: projectMain, finance: financeMain, funding: fundingMain, hr: hrMain, asset: assetMain, edoc: edocMain, booking: bookingMain, agreement: agreementMain, notify: notifyMain, oss: mainMenu }[system]
+  const mainOf = { saraban: sarabanMain, strategic: strategicMain, project: projectMain, finance: financeMain, funding: fundingMain, hr: hrMain, asset: assetMain, edoc: edocMain, booking: bookingMain, agreement: agreementMain, notify: notifyMain, report: reportMain, oss: mainMenu }[system]
   const pins = usePins()
   const pinned = pins.map((to) => pinCatalogFor(system).find((p) => p.to === to)).filter((p): p is NonNullable<typeof p> => !!p)
 
@@ -156,7 +156,7 @@ export default function Sidebar({ collapsed, onExpand, onNavigate }: Props) {
         <SectionTitle label="ปักหมุดระบบที่ใช้งานประจำ" collapsed={collapsed} />
         <div className={`flex flex-col gap-[4px] ${listPad}`}>
           {pinned.map((p) => (
-            <NavItem key={p.to} item={{ ...p, end: ['/funding', '/finance', '/project', '/strategic', '/saraban', '/hr', '/hr/payroll', '/hr/career', '/hr/evaluations', '/hr/certificate', '/asset', '/asset/repair', '/edoc', '/booking', '/agreement', '/notify'].includes(p.to) }} collapsed={collapsed} onNavigate={onNavigate} />
+            <NavItem key={p.to} item={{ ...p, end: ['/funding', '/finance', '/project', '/strategic', '/saraban', '/hr', '/hr/payroll', '/hr/career', '/hr/evaluations', '/hr/certificate', '/asset', '/asset/repair', '/edoc', '/booking', '/agreement', '/notify', '/report'].includes(p.to) }} collapsed={collapsed} onNavigate={onNavigate} />
           ))}
           {pinned.length === 0 && !collapsed && (
             <p className="px-[16px] py-[6px] text-[12px] leading-[1.6] font-light text-[#aeb6c6]">
