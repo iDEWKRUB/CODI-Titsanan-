@@ -53,7 +53,7 @@ export default function AllMenuPage() {
       </nav>
 
       <p className="-mt-[8px] max-w-[720px] text-[13px] leading-[1.7] font-light text-gray-20">
-        {saraban ? `ทุกเมนูของระบบ ${sysName} (เล่มที่ 3 ข้อ ${({ strategic: '2.1.2', project: '2.1.3', finance: '2.1.4', funding: '2.1.5', hr: '2.1.6', notify: '2.5.2', agreement: '2.3.1', booking: '2.1.10', asset: '2.1.8', edoc: '2.1.11', saraban: '2.1.7', oss: '' } as Record<string, string>)[system]}) กดไอคอนหมุดเพื่อปักไว้ที่เมนูซ้าย ปักหมุดตั้งแยกตามระบบ` : 'ระบบให้บริการแบบครบวงจร (CODI OSS) จัดเมนูตามรายงานการออกแบบระบบ เล่มที่ 3 ข้อ 2.2 และระบบอื่น ๆ ข้อ 2.3–2.4'}
+        {saraban ? `ทุกเมนูของระบบ ${sysName} กดไอคอนหมุดเพื่อปักไว้ที่เมนูซ้าย ปักหมุดตั้งแยกตามระบบ` : 'ระบบให้บริการแบบครบวงจร (CODI OSS) จัดเมนูตามกลุ่มงาน และระบบอื่น ๆ'}
       </p>
 
       <div className="grid grid-cols-3 gap-[16px] max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -64,7 +64,6 @@ export default function AllMenuPage() {
                 <img src={g.icon} alt="" width={22} height={22} className="size-[22px]" style={{ filter: 'brightness(0) saturate(100%) invert(36%) sepia(99%) saturate(3000%) hue-rotate(196deg)' }} />
               </span>
               <div className="min-w-0">
-                <p className="font-urbanist text-[11px] leading-[normal] font-medium text-gray-30">ข้อ {g.ref}</p>
                 <h2 className="text-[14px] leading-[1.35] font-semibold text-blue-dark">{g.label}</h2>
               </div>
             </header>
@@ -88,7 +87,6 @@ export default function AllMenuPage() {
               <img src={iconSquares} alt="" width={22} height={22} className="size-[22px] opacity-60" />
             </span>
             <div className="min-w-0">
-              <p className="font-urbanist text-[11px] leading-[normal] font-medium text-gray-30">{saraban ? 'ทั่วไป' : 'ข้อ 2.2.1'}</p>
               <h2 className="text-[14px] leading-[1.35] font-semibold text-blue-dark">เมนูทั่วไป</h2>
             </div>
           </header>

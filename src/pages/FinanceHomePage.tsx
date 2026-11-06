@@ -89,7 +89,7 @@ export default function FinanceHomePage() {
             </>
           )
           const cls = `${card} flex items-center gap-[10px] px-[12px] py-[10px] text-left transition hover:border-blue-00`
-          return q.to ? <Link key={q.label} to={q.to} className={cls}>{inner}</Link> : <button key={q.label} type="button" className={cls} onClick={() => show('หน้าตั้งเบิกให้ผู้รับจ้าง/ผู้ขาย ยังไม่มีหน้าจอในเล่ม 3 ข้อ 2.1.4')}>{inner}</button>
+          return q.to ? <Link key={q.label} to={q.to} className={cls}>{inner}</Link> : <button key={q.label} type="button" className={cls} onClick={() => show('หน้าตั้งเบิกให้ผู้รับจ้าง/ผู้ขาย ยังไม่มีหน้าจอสำหรับรายการนี้')}>{inner}</button>
         })}
       </section>
 
@@ -163,7 +163,7 @@ export default function FinanceHomePage() {
           ))}
         </ul>
       </section>
-      <p className="text-[10px] font-light text-gray-10">การ์ด เมนูด่วน และรายการล่าสุดคำนวณจากเอกสารเงินยืม (2.1.4.2–2.1.4.5) · กราฟรายเดือนและภาษีเป็นข้อมูลตัวอย่าง รอเชื่อมระบบบัญชี</p>
+      <p className="text-[10px] font-light text-gray-10">การ์ด เมนูด่วน และรายการล่าสุดคำนวณจากเอกสารเงินยืม · กราฟรายเดือนและภาษีเป็นข้อมูลตัวอย่าง รอเชื่อมระบบบัญชี</p>
       {toast}
     </div>
   )

@@ -71,7 +71,7 @@ export default function ProjectProposalFormPage() {
           </div>
           {e.plan && <span role="alert" className="text-[11px] text-red-00">{e.plan}</span>}
         </div>
-        <p className="-mt-[4px] text-[11px] font-light text-gray-20">ข้อมูลผู้สร้างแผนงานและข้อมูลแผนงานดึงจากแผนประจำปีที่สำนักยุทธศาสตร์ฯ อนุมัติแล้ว (ERP STRATEGIC 2.1.2.4) แก้ไขไม่ได้</p>
+        <p className="-mt-[4px] text-[11px] font-light text-gray-20">ข้อมูลผู้สร้างแผนงานและข้อมูลแผนงานดึงจากแผนประจำปีที่สำนักยุทธศาสตร์ฯ อนุมัติแล้ว (ERP STRATEGIC) แก้ไขไม่ได้</p>
 
         <PlanInfo plan={plan} />
         <ProposalForm v={v} set={allowed && !locked ? (x) => setV((s) => ({ ...s, ...x })) : undefined} errors={e} />

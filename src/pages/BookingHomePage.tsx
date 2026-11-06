@@ -116,7 +116,7 @@ export default function BookingHomePage() {
             {kinds.map((k) => (
               <Link key={k} to={kindMeta[k].path} className="group flex items-center gap-[12px] rounded-[12px] border border-gray-line-2 p-[12px] transition hover:border-blue-20 hover:shadow-[0_6px_18px_rgba(31,90,200,0.1)]">
                 <span className={`flex size-[38px] shrink-0 items-center justify-center rounded-[10px] ${kindTone[k]}`}><Ic d={kindIcon[k]} s={18} /></span>
-                <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold">{kindMeta[k].label}</span><span className="block text-[11px] font-light text-gray-20">{kindMeta[k].ref}</span></span>
+                <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold">{kindMeta[k].label}</span></span>
                 <span className="text-blue-00 transition group-hover:translate-x-[2px]"><Ic d={BI.plus} s={16} /></span>
               </Link>
             ))}

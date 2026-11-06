@@ -63,7 +63,6 @@ export default function AssetHomePage() {
                 <span className="text-[13px] font-semibold text-black">{x.label}</span>
                 <span className="truncate text-[11px] font-light text-gray-20">{x.sub}{x.need && !central ? ' · สำนักบริหารงานกลาง' : ''}</span>
               </span>
-              <span className="font-urbanist text-[10px] text-gray-20">{x.ref}</span>
             </Link>
           ))}
         </nav>

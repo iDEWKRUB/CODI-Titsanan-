@@ -64,7 +64,7 @@ export default function SystemSwitcher({ tone, onNavigate }: { tone: 'dark' | 'l
         <img src={arrowDropDown} alt="" width={14} height={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <ul role="listbox" aria-label="เลือกระบบ" style={{ top: pos.top, left: pos.left }} className="fixed z-[70] w-[260px] animate-[menu-in_120ms_ease-out] overflow-hidden rounded-[12px] border border-gray-line-2 bg-white p-[6px] text-black shadow-[0_8px_28px_rgba(0,0,0,0.22)]">
+        <ul role="listbox" aria-label="เลือกระบบ" style={{ top: pos.top, left: pos.left, maxHeight: `calc(100dvh - ${pos.top + 12}px)` }} className="fixed z-[70] w-[260px] animate-[menu-in_120ms_ease-out] overflow-y-auto overscroll-contain rounded-[12px] border border-gray-line-2 bg-white p-[6px] text-black shadow-[0_8px_28px_rgba(0,0,0,0.22)]">
           {systems.map((s) => (
             <li key={s.key}>
               <button

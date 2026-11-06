@@ -152,7 +152,7 @@ export default function ProjectHomePage() {
           </ul>
         </section>
       </div>
-      <p className="text-[10px] font-light text-gray-10">ตัวเลขทั้งหมดคำนวณจากรายการผลการดำเนินงาน (2.1.3.2) · กราฟรายเดือนเป็นข้อมูลตัวอย่าง รอเชื่อมระบบการเงิน</p>
+      <p className="text-[10px] font-light text-gray-10">ตัวเลขทั้งหมดคำนวณจากรายการผลการดำเนินงาน · กราฟรายเดือนเป็นข้อมูลตัวอย่าง รอเชื่อมระบบการเงิน</p>
     </div>
   )
 }

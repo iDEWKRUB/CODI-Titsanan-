@@ -56,7 +56,6 @@ export default function AgreementHomePage() {
             <Link key={x.to} to={x.to} className="group flex items-center gap-[12px] rounded-[14px] border border-gray-line-2 bg-white p-[14px] transition hover:border-blue-20 hover:shadow-[0_6px_18px_rgba(31,90,200,0.1)]">
               <span className="flex size-[40px] shrink-0 items-center justify-center rounded-[11px] bg-blue-bg text-blue-00"><Ic d={x.icon} s={19} /></span>
               <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold">{x.label}</span><span className="block text-[11px] font-light text-gray-30">{x.sub}</span></span>
-              <span className="text-[10px] font-light text-gray-20">{x.ref}</span>
             </Link>
           ))}
         </nav>
